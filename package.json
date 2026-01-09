@@ -4,12 +4,22 @@
   "type": "module",
   "description": "",
   "main": "index.js",
+  "lint-staged": {
+    "**/*.html": [
+      "prettier --write"
+    ],
+    "**/*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
   "scripts": {
     "dev": "npx tailwindcss -c ./tailwind.config.cjs -i ./css/input.css -o ./css/style.css --watch",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +29,8 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "tailwindcss": "^3.4.12"
   }
