@@ -38,9 +38,9 @@ export default [
     },
   },
 
-  // Test files (so ESLint won't complain about describe/it/expect/vi later)
+  // Vitest unit test files (describe/it/expect/vi etc.)
   {
-    files: ['**/*.test.js', '**/*.spec.js'],
+    files: ['**/*.test.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -55,6 +55,18 @@ export default [
         afterEach: 'readonly',
         beforeAll: 'readonly',
         afterAll: 'readonly',
+      },
+    },
+  },
+
+  // Playwright e2e test files (Node environment, uses process.env)
+  {
+    files: ['tests/e2e/**/*.spec.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
       },
     },
   },
