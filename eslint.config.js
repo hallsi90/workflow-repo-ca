@@ -1,0 +1,73 @@
+import js from '@eslint/js';
+import globals from 'globals';
+import prettier from 'eslint-config-prettier';
+
+export default [
+  // Ignore folders/files we never want to lint
+  {
+    ignores: ['node_modules/**', 'css/style.css'],
+  },
+
+  // Base recommended ESLint rules
+  js.configs.recommended,
+
+  // Prevent ESLint from fighting Prettier
+  prettier,
+
+  // Browser JavaScript files (your app code)
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+      },
+    },
+  },
+
+  // Node/CommonJS files (configs)
+  {
+    files: ['tailwind.config.cjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+
+  // Vitest unit test files (describe/it/expect/vi etc.)
+  {
+    files: ['**/*.test.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        vi: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
+    },
+  },
+
+  // Playwright e2e test files (Node environment, uses process.env)
+  {
+    files: ['tests/e2e/**/*.spec.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+];
